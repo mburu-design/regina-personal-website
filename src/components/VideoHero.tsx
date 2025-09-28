@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import introVideo from '../assets/intro_video.mp4';
 
-export default function VideoHero() {
+interface VideoHeroProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function VideoHero({ onNavigate }: VideoHeroProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -103,6 +107,7 @@ export default function VideoHero() {
 
                     {/* CTA Button with delayed scale animation */}
                     <button
+                        onClick={() => onNavigate && onNavigate('about')}
                         className={`
                             bg-red-500 hover:bg-red-600 
                             text-white px-8 py-4 rounded-lg 

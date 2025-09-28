@@ -46,7 +46,7 @@ export default function Header({ currentPage = 'home', onNavigate }: HeaderProps
           >
             About
           </button>
-          <button
+          {/* <button
             onClick={() => handleNavigation('services')}
             className={`transition-colors ${currentPage === 'services'
               ? 'text-red-400'
@@ -54,8 +54,8 @@ export default function Header({ currentPage = 'home', onNavigate }: HeaderProps
               }`}
           >
             Services
-          </button>
-          <button
+          </button> */}
+          {/* <button
             onClick={() => handleNavigation('mentorship')}
             className={`transition-colors ${currentPage === 'mentorship'
               ? 'text-red-400'
@@ -63,7 +63,7 @@ export default function Header({ currentPage = 'home', onNavigate }: HeaderProps
               }`}
           >
             Mentorship
-          </button>
+          </button> */}
           <button
             onClick={() => handleNavigation('blog')}
             className={`transition-colors ${currentPage === 'blog'

@@ -110,7 +110,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Dr. Regina Wanja Kingori | RWK Africa. All rights reserved. | Tax Expert • Entrepreneur • Mentor
+            © 2025 Dr. Regina Wanja Kingori | RWK Africa. All rights reserved. | Tax Expert • Entrepreneur • Mentor
           </p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Header from './Header';
 import VideoHero from './VideoHero';
 import FeaturedIn from './FeaturedIn';
+import ProfessionalMemberships from './ProfessionalMemberships';
 import ToolkitSection from './ToolkitSection';
 import About from './About';
 import PersonalBlog from './PersonalBlog';
@@ -20,22 +21,25 @@ export default function HomePage({ currentPage, onNavigate }: HomePageProps) {
       <Header currentPage={currentPage} onNavigate={onNavigate} />
       
       {/* Video Hero Section */}
-      <VideoHero />
+      <VideoHero onNavigate={onNavigate} />
       
       {/* Featured In Section */}
       <FeaturedIn />
+      
+      {/* Professional Memberships Section */}
+      <ProfessionalMemberships />
       
       {/* Toolkit Section */}
       <ToolkitSection />
       
       {/* About Section */}
-      <About />
+      {/* <About /> */}
       
       {/* Personal Blog Section */}
-      <PersonalBlog />
+      {/* <PersonalBlog /> */}
       
       {/* Blog Posts CTA */}
-      <BlogPostsCTA />
+      {/* <BlogPostsCTA /> */}
       
       {/* Toolkit Signup */}
       <ToolkitSignup />

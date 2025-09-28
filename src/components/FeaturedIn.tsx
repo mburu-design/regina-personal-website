@@ -78,7 +78,10 @@ export default function FeaturedIn() {
     if (!isHovered) {
       const maxIndex = Math.max(0, awards.length - cardsPerView);
       const interval = setInterval(() => {
-        setCurrentIndex(prev => prev >= maxIndex ? 0 : prev + 1);
+        setCurrentIndex(prev => {
+          console.log('Current index:', prev, 'Max index:', maxIndex); // Debug log
+          return prev >= maxIndex ? 0 : prev + 1;
+        });
       }, 3000);
 
       return () => clearInterval(interval);
@@ -137,7 +140,7 @@ export default function FeaturedIn() {
             <div
               className="flex gap-4 sm:gap-6 transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing"
               style={{
-                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+                transform: `translateX(-${currentIndex * 224}px)`, // 208px (w-52) + 16px (px-2 on each side)
                 ['--cpv' as any]: cardsPerView,
               }}
               aria-live="polite"
@@ -195,31 +198,31 @@ export default function FeaturedIn() {
               }}
             >
               {awards.map((award) => (
-                <div key={award.id} className="w-64 shrink-0 px-2">
-                  <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
+                <div key={award.id} className="w-52 shrink-0 px-2">
+                  <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-80 flex flex-col">
                     {/* Year Badge Header */}
-                    <div className="relative p-4 bg-gradient-to-r from-red-50 to-red-100">
+                    <div className="relative p-4 bg-gradient-to-r from-red-50 to-red-100 flex-shrink-0">
                       <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold shadow-sm">
                         {award.year}
                       </div>
                     </div>
 
                     {/* Award Content */}
-                    <div className="p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-red-600 transition-colors duration-300 leading-tight">
+                    <div className="p-4 flex-1 flex flex-col">
+                      <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-300 leading-tight">
                         {award.name}
                       </h3>
 
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2">
-                        <span className="text-red-500 font-semibold text-xs sm:text-sm bg-red-50 px-2 py-1 sm:px-3 sm:py-1 rounded-full w-fit">
+                      <div className="flex items-center justify-between mb-4 gap-2">
+                        <span className="text-red-500 font-semibold text-xs bg-red-50 px-2 py-1 rounded-full">
                           {award.category}
                         </span>
-                        <span className="text-gray-500 text-xs sm:text-sm font-medium">
+                        <span className="text-gray-500 text-xs font-medium">
                           {award.organization}
                         </span>
                       </div>
 
-                      <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
+                      <p className="text-gray-600 text-base leading-relaxed mb-4 flex-1">
                         {award.description}
                       </p>
 
@@ -273,14 +276,14 @@ export default function FeaturedIn() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-16">
           <p className="text-gray-600 mb-6 text-lg">
             Ready to work with an award-winning tax expert and entrepreneur?
           </p>
           <button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
             Get Started Today
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -79,7 +79,7 @@ export default function PersonalBlog() {
           </div>
 
           {/* Professional Memberships */}
-          <div className="bg-white p-6 rounded-lg border">
+          {/* <div className="bg-white p-6 rounded-lg border">
             <h4 className="text-gray-800 font-semibold mb-4">Professional Memberships:</h4>
             <div className="flex flex-wrap gap-4 text-sm text-gray-600">
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded">ICPAK</span>
@@ -89,53 +89,11 @@ export default function PersonalBlog() {
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded">KNCCI</span>
               <span className="bg-red-100 text-red-800 px-3 py-1 rounded">WOBN</span>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Blog Posts Section */}
-        <div className="space-y-12">
-          {/* Featured Post */}
-          <article className="grid md:grid-cols-2 gap-8 items-start">
-            <div>
-              <div className="w-full h-64 bg-gradient-to-r from-blue-200 to-red-200 rounded-lg flex items-center justify-center">
-                <span className="text-blue-800 font-semibold text-lg">Tax Planning Guide</span>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p className="text-sm text-gray-500 uppercase tracking-wider">January 15, 2024</p>
-              <h3 className="text-2xl text-gray-800">
-                Essential Tax Planning Strategies for Small Businesses
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Understanding tax compliance is crucial for every business owner. Here's a comprehensive guide to help you navigate tax planning effectively...
-              </p>
-              <a href="#" className="inline-flex items-center text-red-600 hover:text-red-800 transition-colors">
-                CONTINUE READING →
-              </a>
-            </div>
-          </article>
-
-          {/* Second Post */}
-          <article className="grid md:grid-cols-2 gap-8 items-start">
-            <div>
-              <div className="w-full h-64 bg-gradient-to-r from-red-200 to-blue-200 rounded-lg flex items-center justify-center">
-                <span className="text-red-800 font-semibold text-lg">Mentorship Success</span>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p className="text-sm text-gray-500 uppercase tracking-wider">December 20, 2023</p>
-              <h3 className="text-2xl text-gray-800">
-                How Skill Up Mentorship Program is Transforming Lives
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Over 7,000 people trained and 1,000+ businesses started. Here's how our mentorship program is making a real impact...
-              </p>
-              <a href="#" className="inline-flex items-center text-red-600 hover:text-red-800 transition-colors">
-                CONTINUE READING →
-              </a>
-            </div>
-          </article>
-        </div>
+       
       </div>
     </section>
   );
