@@ -27,72 +27,80 @@ export default function AboutPage({ currentPage, onNavigate }: AboutPageProps) {
       <Header currentPage={currentPage} onNavigate={onNavigate} />
 
       {/* Hero Section with padding for fixed header */}
-      <section className="w-full px-6 py-20 pt-36 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left - Image */}
-            <div className="flex justify-center md:justify-start">
-              <div className="relative">
-                <div className="w-80 h-96 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl overflow-hidden">
-                  <ImageWithFallback
-                    src={reginaImage}
-                    alt="Dr. Regina Wanja Kingori - Professional photo"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
+     <section className="relative w-full min-h-screen bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 py-12 pt-28">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start min-h-[80vh]">
+          {/* Left - Content */}
+          <div className="space-y-8 z-10 relative pt-8 md:pt-16" style={{ paddingLeft: window.innerWidth >= 768 ? '35%' : '5%' }}>
+            <div className="space-y-6">
+              <p className="text-red-300 text-sm uppercase tracking-wider font-semibold">ABOUT</p>
+              <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight font-bold">
+                Tax Expert. Entrepreneur.<br />
+                <span className="text-red-400">CEO of RWK Africa.</span>
+              </h1>
             </div>
 
-            {/* Right - Content */}
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <p className="text-red-300 text-sm uppercase tracking-wider">ABOUT</p>
-                <h1 className="text-white text-4xl md:text-5xl lg:text-6xl leading-tight">
-                  Dr. Regina Kingori
-                </h1>
-              </div>
+            <div className="space-y-4 md:space-y-6 text-white/90 text-lg md:text-xl leading-relaxed max-w-2xl">
+              <p className="text-xl md:text-2xl">
+                <span className="text-white font-semibold">Dr. Regina Wanja Kingori</span> is on a mission to grow successful organizations through expert tax consulting and entrepreneurial mentorship.
+              </p>
+              <p className="text-base md:text-lg">
+                Over <span className="text-red-300 font-semibold">7,000+ individuals</span> have benefited from the mentorship programs built by my organization, transforming businesses across Africa.
+              </p>
+            </div>
 
-              <div className="space-y-4 text-white/90 text-lg">
-                <p>
-                  Hello, my name is Dr. Regina Wanja Kingori, and I'm a seasoned entrepreneur and tax expert. I was recognized for my outstanding contributions to business development and tax consulting. Over 7,000+ individuals have benefited from the mentorship programs built by my organization.
-                </p>
-              </div>
+            {/* Navigation Tabs */}
+            <div className="space-y-4 pt-8">
+              <p className="text-white/70 text-sm uppercase tracking-wider mb-4">Explore My Journey</p>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    // Scroll to the content section
+                    const contentSection = document.getElementById('content-section');
+                    if (contentSection) {
+                      contentSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }}
+                  className={`flex items-center gap-3 text-left transition-all duration-300 group hover:translate-x-2 ${activeTab === tab.id
+                      ? 'text-red-400'
+                      : 'text-white/80 hover:text-red-400'
+                    }`}
+                >
+                  <span className={`transition-all duration-300 ${activeTab === tab.id ? 'text-red-400' : 'text-white/60'
+                    }`}>
+                    {tab.icon}
+                  </span>
+                  <span className="font-medium text-lg">
+                    {tab.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
 
-              {/* Navigation Tabs */}
-              <div className="space-y-4 pt-8">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => {
-                      setActiveTab(tab.id);
-                      // Scroll to the content section
-                      const contentSection = document.getElementById('content-section');
-                      if (contentSection) {
-                        contentSection.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start'
-                        });
-                      }
-                    }}
-                    className={`flex items-center gap-3 text-left transition-colors group ${activeTab === tab.id
-                        ? 'text-red-400'
-                        : 'text-yellow-400 hover:text-red-400'
-                      }`}
-                  >
-                    <span className={`transition-transform group-hover:translate-x-1 ${activeTab === tab.id ? 'text-red-400' : 'text-yellow-400'
-                      }`}>
-                      {tab.icon}
-                    </span>
-                    <span className="font-medium underline decoration-1 underline-offset-4">
-                      {tab.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
+          {/* Right - Image with Seamless Fade Effect */}
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative w-full h-[400px] md:h-[500px] lg:w-[600px] lg:h-[700px]">
+              {/* Main Image with CSS Mask for Seamless Fade */}
+              <img
+                src="/src/assets/regina-with-transaparent-background.png"
+                alt="Dr. Regina Wanja Kingori - Professional photo"
+                className="w-full h-full object-contain object-center"
+                style={{
+                  maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,1) 80%)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,1) 80%)'
+                }}
+              />
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Content Sections */}
       <section id="content-section" className="w-full px-6 py-20 bg-gray-50">

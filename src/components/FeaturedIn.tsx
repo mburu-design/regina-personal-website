@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import credenceAward from '../assets/awards/credence_africa_best-tax-advisory_award-no-background.svg';
+import credenceAwardWithBg from '../assets/awards/credence_africa_best-tax-advisory_award.svg';
 
 export default function FeaturedIn() {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,8 +16,10 @@ export default function FeaturedIn() {
         setCardsPerView(1); // Mobile: 1 card
       } else if (width < 1024) {
         setCardsPerView(2); // Tablet: 2 cards
-      } else {
+      } else if (width < 1280) {
         setCardsPerView(3); // Desktop: 3 cards
+      } else {
+        setCardsPerView(4); // Large desktop: 4 cards
       }
     };
 
@@ -41,7 +44,7 @@ export default function FeaturedIn() {
       category: "Technology Excellence",
       year: "2023",
       description: "Honored for innovative use of technology in tax consulting and business development services.",
-      image: credenceAward,
+      image: credenceAwardWithBg,
       organization: "Digital Innovation Council"
     },
     {
@@ -59,7 +62,7 @@ export default function FeaturedIn() {
       category: "International Trade",
       year: "2022",
       description: "Recognized for contributions to international trade development and cross-border business facilitation.",
-      image: credenceAward,
+      image: credenceAwardWithBg,
       organization: "Organization for Women in International Trade"
     },
     {
@@ -73,7 +76,7 @@ export default function FeaturedIn() {
     }
   ];
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality - FIXED
   useEffect(() => {
     if (!isHovered) {
       const maxIndex = Math.max(0, awards.length - cardsPerView);
@@ -88,8 +91,6 @@ export default function FeaturedIn() {
     }
   }, [isHovered, awards.length, cardsPerView]);
 
-
-
   const handlePrevious = () => {
     const maxIndex = Math.max(0, awards.length - cardsPerView);
     setCurrentIndex(prev => prev === 0 ? maxIndex : prev - 1);
@@ -100,8 +101,13 @@ export default function FeaturedIn() {
     setCurrentIndex(prev => prev >= maxIndex ? 0 : prev + 1);
   };
 
-  const pageCount = Math.max(1, Math.ceil(awards.length / cardsPerView));
+  // FIXED: Calculate indicators based on actual scroll positions
+  const maxIndex = Math.max(0, awards.length - cardsPerView);
   const showNav = awards.length > cardsPerView;
+
+  // Calculate card width dynamically - increased by 20%
+  const cardWidth = `calc((100% - ${(cardsPerView - 1) * 2}rem) / ${cardsPerView} * 1.2)`;
+  const translateX = `calc(-${currentIndex} * (${cardWidth} + 2rem))`;
 
   return (
     <section className="w-full py-20 bg-gradient-to-b from-slate-50 to-white">
@@ -130,18 +136,16 @@ export default function FeaturedIn() {
             </button>
           )}
 
-          {/* Cards Container - 80% width */}
+          {/* Cards Container - FIXED: Made responsive */}
           <div
-            className="overflow-hidden w-4/5 relative"
+            className="overflow-hidden flex-1 relative"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-
             <div
-              className="flex gap-4 sm:gap-6 transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing"
+              className="flex gap-8 transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing"
               style={{
-                transform: `translateX(-${currentIndex * 224}px)`, // 208px (w-52) + 16px (px-2 on each side)
-                ['--cpv' as any]: cardsPerView,
+                transform: `translateX(${translateX})`, // FIXED: Dynamic calculation
               }}
               aria-live="polite"
               onTouchStart={(e) => {
@@ -198,48 +202,134 @@ export default function FeaturedIn() {
               }}
             >
               {awards.map((award) => (
-                <div key={award.id} className="w-52 shrink-0 px-2">
-                  <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-80 flex flex-col">
-                    {/* Year Badge Header */}
-                    <div className="relative p-4 bg-gradient-to-r from-red-50 to-red-100 flex-shrink-0">
-                      <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold shadow-sm">
-                        {award.year}
-                      </div>
-                    </div>
+                <div
+                  key={award.id}
+                  className="shrink-0"
+                  style={{ width: cardWidth }} // FIXED: Dynamic width
+                >
+                  <div
+                    className="rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group h-80 flex flex-col relative"
+                    style={{
+                      backgroundImage: `url(${award.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundColor: '#f8fafc', // Light fallback color
+                    }}
+                  >
+                    {/* Light overlay for better text readability */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%)'
+                      }}
+                    ></div>
 
-                    {/* Award Content */}
-                    <div className="p-4 flex-1 flex flex-col">
-                      <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-300 leading-tight">
-                        {award.name}
-                      </h3>
-
-                      <div className="flex items-center justify-between mb-4 gap-2">
-                        <span className="text-red-500 font-semibold text-xs bg-red-50 px-2 py-1 rounded-full">
-                          {award.category}
-                        </span>
-                        <span className="text-gray-500 text-xs font-medium">
-                          {award.organization}
-                        </span>
-                      </div>
-
-                      <p className="text-gray-600 text-base leading-relaxed mb-4 flex-1">
-                        {award.description}
-                      </p>
-
-                      {/* Award Badge */}
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
-                            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <span className="text-gray-700 font-medium text-sm">Excellence Award</span>
+                    {/* Content overlay - positioned on top of background */}
+                    <div
+                      className="relative flex flex-col justify-between h-full"
+                      style={{
+                        zIndex: 10,
+                        padding: '24px',
+                        color: 'white'
+                      }}
+                    >
+                      {/* Top Section - Year Badge */}
+                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <div
+                          className="rounded-full font-bold shadow-lg"
+                          style={{
+                            background: 'white',
+                            color: '#374151',
+                            padding: '8px 12px',
+                            fontSize: '14px'
+                          }}
+                        >
+                          {award.year}
                         </div>
-                        <div className="w-8 h-8 bg-red-50 rounded-full flex items-center justify-center group-hover:bg-red-100 transition-colors duration-300">
-                          <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
+                      </div>
+
+                      {/* Bottom Section - Main Content */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <h3
+                          style={{
+                            fontSize: '20px',
+                            fontWeight: 'bold',
+                            color: 'white',
+                            lineHeight: '1.2',
+                            margin: '0'
+                          }}
+                        >
+                          {award.name}
+                        </h3>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+                          <span
+                            className="rounded-full font-semibold"
+                            style={{
+                              color: 'white',
+                              background: '#991b1b',
+                              padding: '4px 12px',
+                              fontSize: '14px'
+                            }}
+                          >
+                            {award.category}
+                          </span>
+                        </div>
+
+                        <p
+                          style={{
+                            color: 'white',
+                            fontSize: '14px',
+                            lineHeight: '1.4',
+                            margin: '0 0 12px 0'
+                          }}
+                        >
+                          {award.description}
+                        </p>
+
+                        {/* Organization and Excellence Badge */}
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            paddingTop: '8px',
+                            borderTop: '1px solid rgba(255,255,255,0.5)'
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: 'white',
+                              fontSize: '14px',
+                              fontWeight: '500'
+                            }}
+                          >
+                            {award.organization}
+                          </span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div
+                              className="rounded-full flex items-center justify-center"
+                              style={{
+                                width: '20px',
+                                height: '20px',
+                                background: 'white'
+                              }}
+                            >
+                              <svg className="text-red-500" style={{ width: '8px', height: '8px' }} fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <span
+                              style={{
+                                color: 'white',
+                                fontSize: '12px',
+                                fontWeight: '500'
+                              }}
+                            >
+                              Excellence
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -261,29 +351,21 @@ export default function FeaturedIn() {
           )}
         </div>
 
-        {/* Scroll Indicators */}
-        <div className="flex justify-center mt-8 gap-2">
-          {Array.from({ length: pageCount }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(cardsPerView === 1 ? index : index * cardsPerView)}
-              className={`h-2 rounded-full transition-all duration-300 ${index === Math.floor(currentIndex / (cardsPerView === 1 ? 1 : cardsPerView))
-                ? 'bg-red-500 w-8'
-                : 'bg-gray-300 w-2 hover:bg-gray-400'
-                }`}
-            />
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        {/* <div className="text-center mt-16">
-          <p className="text-gray-600 mb-6 text-lg">
-            Ready to work with an award-winning tax expert and entrepreneur?
-          </p>
-          <button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
-            Get Started Today
-          </button>
-        </div> */}
+        {/* FIXED: Scroll Indicators */}
+        {showNav && (
+          <div className="flex justify-center mt-8 gap-2">
+            {Array.from({ length: maxIndex + 1 }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                  ? 'bg-red-500 w-8'
+                  : 'bg-gray-300 w-2 hover:bg-gray-400'
+                  }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

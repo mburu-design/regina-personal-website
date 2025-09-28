@@ -12,7 +12,7 @@ export default function Hero() {
               Tax Expert. Entrepreneur.<br />
               CEO of RWK Africa.
             </h1>
-            
+
             <div className="space-y-4 text-white/90 text-lg">
               <p>
                 <span className="font-semibold">Dr. Regina Wanja Kingori</span> is on a mission to grow successful organizations. With over <span className="font-semibold">10+ years of tax expertise</span> and entrepreneurial experience, she helps businesses achieve tax compliance and scale effectively.
@@ -30,7 +30,7 @@ export default function Hero() {
           {/* Right Content - Profile Image */}
           <div className="flex justify-center md:justify-end">
             <div className="relative">
-              <ImageWithFallback 
+              <ImageWithFallback
                 src={reginaImage}
                 alt="Dr. Regina Wanja Kingori - Professional headshot"
                 className="w-80 h-96 object-cover rounded-lg"
