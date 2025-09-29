@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import reginaImage from '../assets/reginal_profile_pic_checked.jpg';
 import familyImage from '../assets/ffab2bd2e2958b6bd27aa0a8efa9a0fd2a33b065.jpg';
-
+import reginaImg from '@/assets/regina-with-transaparent-background.png';
 interface AboutPageProps {
   currentPage: string;
   onNavigate: (page: string) => void;
@@ -88,7 +88,7 @@ export default function AboutPage({ currentPage, onNavigate }: AboutPageProps) {
             <div className="relative w-full h-[400px] md:h-[500px] lg:w-[600px] lg:h-[700px]">
               {/* Main Image with CSS Mask for Seamless Fade */}
               <img
-                src="/src/assets/regina-with-transaparent-background.png"
+                src={reginaImg}
                 alt="Dr. Regina Wanja Kingori - Professional photo"
                 className="w-full h-full object-contain object-center"
                 style={{
